@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;800&display=swap');
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --primary-color: #00f3ff;
+    --accent-color: #ff00ea;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --node-width: 60px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem 1rem;
+    overflow-x: hidden;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    background: var(--glass-bg);
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    border: 1px solid var(--glass-border);
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 150px;
+    background: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    margin-top: -8px;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn.primary {
+    background: var(--glass-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.btn.primary:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+}
+
+.btn.accent {
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 0, 234, 0.4);
+}
+
+.btn.accent:hover:not(:disabled) {
+    box-shadow: 0 0 25px rgba(255, 0, 234, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--glass-bg);
+    color: var(--text-muted);
+    border-color: var(--text-muted);
+    box-shadow: none;
+}
+
+.game-board {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 1.5rem 1rem;
+}
+
+.nodes-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    z-index: 10;
+}
+
+.node-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: var(--node-width);
+}
+
+/* Custom Select & Input Styles */
+.node-input-container {
+    position: relative;
+    width: 80px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+}
+
+.node-select, .node-text {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.85rem;
+    text-align: center;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.node-select {
+    cursor: pointer;
+    appearance: none;
+    padding: 0 5px;
+}
+
+.node-select:focus, .node-text:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
+}
+
+.node-select option {
+    background: #1e1b4b;
+    color: #fff;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Bottom Nodes */
+.bottom-node {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    width: 80px;
+    text-align: center;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.bottom-node:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(255, 0, 234, 0.2);
+}
+
+.bottom-node.winner {
+    background: rgba(255, 0, 234, 0.2);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--accent-color);
+    box-shadow: 0 0 15px rgba(255, 0, 234, 0.4);
+}
+
+.canvas-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    margin: 10px 0;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.start-btn {
+    margin-top: 10px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: rgba(0, 243, 255, 0.1);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.start-btn:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+.action-controls {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 600px) {
+    .controls {
+        flex-direction: column;
+        gap: 1rem;
+        border-radius: 20px;
+    }
+    
+    .node-input-container, .bottom-node {
+        width: 60px;
+        font-size: 0.75rem;
+    }
+    
+    .start-btn {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+}

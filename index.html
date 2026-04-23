@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오토스테이 덕소 사다리게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>오토스테이 덕소</h1>
+            <p>사다리게임</p>
+        </header>
+
+        <section class="controls">
+            <div class="control-group">
+                <label for="player-count">인원 수 (<span id="player-count-display">5</span>명)</label>
+                <input type="range" id="player-count" min="2" max="8" value="5">
+            </div>
+            <button id="generate-btn" class="btn primary">사다리 만들기</button>
+        </section>
+
+        <section class="game-board glass-panel">
+            <div id="top-nodes" class="nodes-container">
+                <!-- 상단 참가자 노드들이 동적으로 생성됨 -->
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="ladder-canvas"></canvas>
+            </div>
+
+            <div id="bottom-nodes" class="nodes-container">
+                <!-- 하단 결과 노드들이 동적으로 생성됨 -->
+            </div>
+        </section>
+
+        <section class="action-controls">
+            <button id="play-all-btn" class="btn accent" disabled>전체 결과 보기</button>
+        </section>
+    </div>
+
+    <!-- 직접 작성 모달 (또는 인라인 UI로 처리 가능하지만, 심플하게 인라인 텍스트로 전환할 예정) -->
+    <script src="script.js"></script>
+</body>
+
+</html>
