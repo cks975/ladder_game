@@ -6,6 +6,7 @@ const DOM = {
     bottomNodes: document.getElementById('bottom-nodes'),
     canvas: document.getElementById('ladder-canvas'),
     playAllBtn: document.getElementById('play-all-btn'),
+    gameBoardInner: document.getElementById('game-board-inner'),
 };
 
 const CTX = DOM.canvas.getContext('2d');
@@ -49,6 +50,10 @@ function init() {
 }
 
 function renderNodes() {
+    // 노드 수에 따른 최소 너비 동적 설정 (노드당 여유 공간 85px 할당)
+    const minRequiredWidth = Math.max(100, state.numPlayers * 85);
+    DOM.gameBoardInner.style.minWidth = `max(100%, ${minRequiredWidth}px)`;
+
     DOM.topNodes.innerHTML = '';
     DOM.bottomNodes.innerHTML = '';
 
