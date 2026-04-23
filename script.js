@@ -50,9 +50,7 @@ function init() {
 }
 
 function renderNodes() {
-    // 노드 수에 따른 최소 너비 동적 설정 (노드당 여유 공간 85px 할당)
-    const minRequiredWidth = Math.max(100, state.numPlayers * 85);
-    DOM.gameBoardInner.style.minWidth = `max(100%, ${minRequiredWidth}px)`;
+    DOM.gameBoardInner.style.minWidth = '100%'; // 한 화면에 꽉 차게 변경
 
     DOM.topNodes.innerHTML = '';
     DOM.bottomNodes.innerHTML = '';

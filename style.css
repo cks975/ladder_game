@@ -304,19 +304,47 @@ canvas {
 }
 
 @media (max-width: 600px) {
+    body {
+        padding: 1rem 0.5rem;
+    }
+
+    .app-container {
+        gap: 1rem;
+    }
+
+    .glass-panel {
+        padding: 1rem 0.5rem;
+    }
+
     .controls {
         flex-direction: column;
         gap: 1rem;
         border-radius: 20px;
     }
     
-    .node-input-container, .bottom-node {
-        width: 60px;
-        font-size: 0.75rem;
+    .node-wrapper {
+        width: 45px;
+    }
+
+    .node-input-container {
+        width: 45px;
+        height: 30px;
+    }
+
+    .node-select, .node-text {
+        font-size: 0.6rem;
+        padding: 0;
+    }
+
+    .bottom-node {
+        width: 45px;
+        font-size: 0.6rem;
+        padding: 0.3rem 0;
     }
     
     .start-btn {
-        font-size: 0.7rem;
-        padding: 4px 8px;
+        font-size: 0.6rem;
+        padding: 3px 6px;
+        margin-top: 5px;
     }
 }
