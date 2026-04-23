@@ -7,6 +7,7 @@ const DOM = {
     canvas: document.getElementById('ladder-canvas'),
     playAllBtn: document.getElementById('play-all-btn'),
     gameBoardInner: document.getElementById('game-board-inner'),
+    resetBtn: document.getElementById('reset-btn'),
 };
 
 const CTX = DOM.canvas.getContext('2d');
@@ -36,6 +37,7 @@ function init() {
 
     DOM.generateBtn.addEventListener('click', generateLadder);
     DOM.playAllBtn.addEventListener('click', playAllAnimations);
+    DOM.resetBtn.addEventListener('click', resetGame);
 
     window.addEventListener('resize', () => {
         if (state.isGenerated) {
@@ -47,6 +49,22 @@ function init() {
 
     renderNodes();
     clearCanvas();
+}
+
+function resetGame() {
+    state.selections = Array(8).fill("");
+    state.results = Array(8).fill("꽝");
+    state.isGenerated = false;
+    state.isAnimating = false;
+    
+    // UI 초기화
+    DOM.playerCount.value = 5;
+    state.numPlayers = 5;
+    DOM.playerCountDisplay.textContent = 5;
+    
+    renderNodes();
+    clearCanvas();
+    DOM.playAllBtn.disabled = true;
 }
 
 function renderNodes() {
@@ -128,6 +146,8 @@ function renderNodes() {
         }
 
         bottomNode.addEventListener('click', () => {
+            if (state.isGenerated) return; // 사다리가 생성된 후에는 결과 변경 불가
+            
             if (state.results[i] === "당첨") {
                 state.results[i] = "꽝";
                 bottomNode.classList.remove('winner');
