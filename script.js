@@ -255,34 +255,47 @@ function generateLadder() {
 
     // Generate random horizontal lines
     state.ladderData = [];
-    const numHorizontalLines = state.numPlayers * 3; // Arbitrary complexity
     const minH = 40;
     const maxH = height - 40;
+    const minGapY = 30; // 가로줄 간의 최소 높이 차이 (겹침 방지)
     
     for (let i = 0; i < state.numPlayers - 1; i++) {
         let linesInColumn = Math.floor(Math.random() * 3) + 2; // 2 to 4 lines per gap
         for (let j = 0; j < linesInColumn; j++) {
-            const y = minH + Math.random() * (maxH - minH);
-            // Ensure no overlap with adjacent columns closely
-            state.ladderData.push({
-                col: i,
-                x1: state.verticalLines[i],
-                x2: state.verticalLines[i+1],
-                y: y
-            });
+            let y;
+            let isValid = false;
+            let attempts = 0;
+
+            while (!isValid && attempts < 100) {
+                y = minH + Math.random() * (maxH - minH);
+                isValid = true;
+
+                // 같은 컬럼 또는 인접한 컬럼에 비슷한 높이의 가로줄이 있는지 확인하여 겹침 방지
+                for (let k = 0; k < state.ladderData.length; k++) {
+                    const existingLine = state.ladderData[k];
+                    if (Math.abs(existingLine.col - i) <= 1) {
+                        if (Math.abs(existingLine.y - y) < minGapY) {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+                attempts++;
+            }
+
+            if (isValid) {
+                state.ladderData.push({
+                    col: i,
+                    x1: state.verticalLines[i],
+                    x2: state.verticalLines[i+1],
+                    y: y
+                });
+            }
         }
     }
 
-    // Sort ladder data by Y to prevent same Y overlaps (though strictly not necessary if we have small gap, but let's enforce some gap)
-    // Simplify: just sort by Y
+    // Sort ladder data by Y
     state.ladderData.sort((a, b) => a.y - b.y);
-
-    // Enforce Y distance
-    for (let i = 1; i < state.ladderData.length; i++) {
-        if (state.ladderData[i].y - state.ladderData[i-1].y < 15) {
-            state.ladderData[i].y += 15;
-        }
-    }
 
     state.isGenerated = true;
     DOM.playAllBtn.disabled = false;
