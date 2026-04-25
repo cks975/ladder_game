@@ -397,6 +397,13 @@ function animatePath(startIndex, color, isLast = false) {
             const originalBg = bottomNodes[currentCol].style.background;
             bottomNodes[currentCol].style.background = 'rgba(0, 243, 255, 0.4)';
             bottomNodes[currentCol].style.boxShadow = '0 0 15px rgba(0, 243, 255, 0.6)';
+            
+            // "당첨" 결과인 경우 참가자 이름과 함께 표시
+            if (state.results[currentCol] === "당첨") {
+                const winnerName = state.selections[startIndex] || `참가자 ${startIndex + 1}`;
+                bottomNodes[currentCol].innerHTML = `${winnerName}<br>당첨`;
+            }
+
             setTimeout(() => {
                 bottomNodes[currentCol].style.background = originalBg;
                 bottomNodes[currentCol].style.boxShadow = 'none';
